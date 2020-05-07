@@ -18,6 +18,13 @@ public interface UserRepository extends Neo4jRepository<UserInfo, Long>{
 	//增
 	@Query("create (u:userInfo_nd{name:{info}.name, age:{info}.age, sex:{info}.sex }) return u")
 	void addOne(@Param("info") UserInfo userInfo);
+	
+	@Query("with {info} as info "
+			+ "merge (u:userInfo_nd{name:info.name}) "
+			+ "on match set u.name = info.name, u.age = info.age, u.sex = info.sex "
+			+ "on create set u.name = info.name, u.age = info.age, u.sex = info.sex "
+			+ "return u")
+	void addOneWith(@Param("info") UserInfo userInfo);
 
 	@Query("with {userList} as batch "
 			+ "unwind batch as row "

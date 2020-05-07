@@ -57,6 +57,16 @@ public class HelloController {
 		return result;
 	}
 	
+	@RequestMapping(value="/addOneWith", method=RequestMethod.POST)
+	public CommonResult addOneWith(@RequestBody JSONObject info) {
+		UserInfo userInfo = new UserInfo();
+		userInfo.setName(info.getString("name"));
+		userInfo.setAge(info.getInteger("age"));
+		userInfo.setSex(info.getString("sex"));
+		CommonResult result = userInfoService.addOneWith(userInfo);
+		return result;
+	}
+	
 	@RequestMapping(value="/queryByName", method=RequestMethod.POST)
 	public CommonResult queryByName(@RequestBody JSONObject info) {
 		CommonResult result = userInfoService.queryByName(info.getString("name"));

@@ -53,6 +53,18 @@ public class UserInfoService {
 		return result;
 	}
 	
+	public CommonResult addOneWith(UserInfo userInfo) {
+		CommonResult result = new CommonResult();
+		try {
+			userRepository.addOneWith(userInfo);
+		} catch (Exception e) {
+			logger.error(e.toString());
+			result.setState(false);
+			result.setMsg(e.toString());
+		}
+		return result;
+	}
+	
 	public CommonResult queryByName(String name) {
 		CommonResult result = new CommonResult();
 		try {
